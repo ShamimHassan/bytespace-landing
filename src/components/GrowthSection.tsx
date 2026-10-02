@@ -1,3 +1,5 @@
+'use client';
+
 const FEATURES = [
   { icon:'🎓', label:'Share Your Expertise' },
   { icon:'💸', label:'Monetize Your Passion' },

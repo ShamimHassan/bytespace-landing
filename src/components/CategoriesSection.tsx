@@ -1,3 +1,5 @@
+'use client';
+
 const CATS = [
   { name:'Design',       icon:'🎨', courses:200, accent:'rgba(124,58,237,0.25)' },
   { name:'Development',  icon:'💻', courses:350, accent:'rgba(6,182,212,0.20)' },
