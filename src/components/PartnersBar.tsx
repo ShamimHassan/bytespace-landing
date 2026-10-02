@@ -1,3 +1,5 @@
+'use client';
+
 const partners = [
   { name: 'Google',    icon: 'G', color: '#4285F4' },
   { name: 'Microsoft', icon: 'M', color: '#00A4EF' },

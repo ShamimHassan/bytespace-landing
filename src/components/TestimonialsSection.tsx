@@ -1,3 +1,5 @@
+'use client';
+
 const TESTIMONIALS = [
   {
     name:'Sarah M.', role:'Enthusiastic Learner', initials:'SM',
