@@ -9,73 +9,110 @@ interface CourseCardProps {
   icon: string;
 }
 
-export default function CourseCard({
-  title,
-  author,
-  level,
-  price,
-  rating,
-  students,
-  gradient,
-  icon,
-}: CourseCardProps) {
-  const avatarColors = ['bg-violet-500', 'bg-pink-500', 'bg-cyan-500', 'bg-orange-500'];
+const avatarColors = ['#7c3aed','#ec4899','#06b6d4','#f97316'];
 
+export default function CourseCard({ title, author, level, price, rating, icon, students }: CourseCardProps) {
   return (
-    <div className="glass-card rounded-2xl overflow-hidden group hover:border-purple-500/30 hover:shadow-xl hover:shadow-purple-900/20 transition-all duration-300 hover:-translate-y-1">
+    <div style={{
+      background:'rgba(255,255,255,0.04)',
+      border:'1px solid rgba(255,255,255,0.08)',
+      borderRadius:'20px', overflow:'hidden',
+      backdropFilter:'blur(12px)', WebkitBackdropFilter:'blur(12px)',
+      transition:'all 0.3s ease',
+      cursor:'pointer',
+    }}
+      onMouseOver={e => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = 'translateY(-4px)';
+        el.style.borderColor = 'rgba(124,58,237,0.35)';
+        el.style.boxShadow = '0 20px 60px rgba(124,58,237,0.15)';
+      }}
+      onMouseOut={e => {
+        const el = e.currentTarget as HTMLElement;
+        el.style.transform = 'translateY(0)';
+        el.style.borderColor = 'rgba(255,255,255,0.08)';
+        el.style.boxShadow = 'none';
+      }}
+    >
       {/* Thumbnail */}
-      <div className={`h-[185px] ${gradient} flex items-center justify-center relative overflow-hidden`}>
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-black/20" />
-        <div className="w-16 h-16 rounded-2xl bg-white/15 backdrop-blur-sm flex items-center justify-center text-3xl shadow-lg">
-          {icon}
-        </div>
-        {/* Level badge */}
-        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm text-xs text-white/90 font-medium border border-white/15">
-          {level}
-        </div>
+      <div style={{
+        height:'185px',
+        background:'linear-gradient(135deg,rgba(88,28,220,0.65),rgba(6,182,212,0.35))',
+        display:'flex', alignItems:'center', justifyContent:'center',
+        position:'relative'
+      }}>
+        <div style={{
+          width:'60px', height:'60px', borderRadius:'16px',
+          background:'rgba(255,255,255,0.15)', backdropFilter:'blur(8px)',
+          display:'flex', alignItems:'center', justifyContent:'center', fontSize:'26px'
+        }}>{icon}</div>
+        {/* level badge */}
+        <div style={{
+          position:'absolute', top:'12px', left:'12px',
+          padding:'3px 10px', borderRadius:'999px',
+          background:'rgba(0,0,0,0.45)', backdropFilter:'blur(8px)',
+          fontSize:'11px', color:'rgba(255,255,255,0.85)', fontWeight:500,
+          border:'1px solid rgba(255,255,255,0.12)'
+        }}>{level}</div>
       </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="text-white font-semibold text-[16px] leading-snug mb-1 line-clamp-2 group-hover:text-purple-200 transition-colors">
+      {/* Body */}
+      <div style={{ padding:'20px' }}>
+        <h3 style={{ color:'#fff', fontWeight:700, fontSize:'15px', lineHeight:1.4, marginBottom:'4px' }}>
           {title}
         </h3>
-        <p className="text-white/40 text-[13px] mb-4">{author}</p>
+        <p style={{ color:'rgba(255,255,255,0.38)', fontSize:'12px', marginBottom:'16px' }}>{author}</p>
 
-        <div className="flex items-center justify-between">
-          {/* Students */}
-          <div className="flex items-center gap-0 avatar-stack">
-            {avatarColors.map((color, i) => (
-              <div
-                key={i}
-                className={`avatar w-7 h-7 rounded-full ${color} border-2 border-[#12121a] flex items-center justify-center text-[10px] font-bold text-white`}
-              >
-                {String.fromCharCode(65 + i)}
-              </div>
+        {/* Students + Rating */}
+        <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:'16px' }}>
+          <div style={{ display:'flex', alignItems:'center' }}>
+            {avatarColors.map((bg,i) => (
+              <div key={i} style={{
+                width:'26px', height:'26px', borderRadius:'50%', background:bg,
+                border:'2px solid #12121a', marginLeft: i===0?0:'-7px',
+                display:'flex', alignItems:'center', justifyContent:'center',
+                fontSize:'9px', fontWeight:700, color:'#fff'
+              }}>{String.fromCharCode(65+i)}</div>
             ))}
-            <div className="ml-[-10px] w-7 h-7 rounded-full bg-white/10 border-2 border-[#12121a] flex items-center justify-center text-[9px] font-bold text-white">
-              {students}
-            </div>
+            <div style={{
+              width:'26px', height:'26px', borderRadius:'50%',
+              background:'rgba(255,255,255,0.12)',
+              border:'2px solid #12121a', marginLeft:'-7px',
+              display:'flex', alignItems:'center', justifyContent:'center',
+              fontSize:'8px', fontWeight:700, color:'#fff'
+            }}>{students}</div>
           </div>
-
-          {/* Rating */}
-          <div className="flex items-center gap-1">
-            <span className="text-white font-bold text-[15px]">{rating}</span>
-            <svg className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
+          <div style={{ display:'flex', alignItems:'center', gap:'3px' }}>
+            <span style={{ color:'#fff', fontWeight:700, fontSize:'14px' }}>{rating}</span>
+            <span style={{ color:'#fbbf24', fontSize:'14px' }}>★</span>
           </div>
         </div>
 
         {/* Price + CTA */}
-        <div className="flex items-center justify-between mt-4 pt-4 border-t border-white/6">
-          <div className="flex items-baseline gap-1">
-            <span className="text-violet-400 font-black text-[20px]">{price}</span>
-            <span className="text-white/35 text-[12px]">/lifetime</span>
+        <div style={{
+          display:'flex', alignItems:'center', justifyContent:'space-between',
+          paddingTop:'14px', borderTop:'1px solid rgba(255,255,255,0.06)'
+        }}>
+          <div>
+            <span style={{ color:'#a855f7', fontWeight:900, fontSize:'20px' }}>{price}</span>
+            <span style={{ color:'rgba(255,255,255,0.3)', fontSize:'11px' }}>/lifetime</span>
           </div>
-          <button className="px-4 py-2 rounded-full text-[13px] font-semibold text-white bg-white/8 hover:bg-purple-600/80 border border-white/10 hover:border-purple-500 transition-all">
-            Enroll Now
-          </button>
+          <button style={{
+            padding:'7px 16px', borderRadius:'999px', fontSize:'12px', fontWeight:600,
+            background:'rgba(255,255,255,0.07)', border:'1px solid rgba(255,255,255,0.10)',
+            color:'rgba(255,255,255,0.80)', cursor:'pointer', transition:'all 0.2s'
+          }}
+            onMouseOver={e => {
+              (e.currentTarget as HTMLElement).style.background='rgba(124,58,237,0.7)';
+              (e.currentTarget as HTMLElement).style.borderColor='#7c3aed';
+              (e.currentTarget as HTMLElement).style.color='#fff';
+            }}
+            onMouseOut={e => {
+              (e.currentTarget as HTMLElement).style.background='rgba(255,255,255,0.07)';
+              (e.currentTarget as HTMLElement).style.borderColor='rgba(255,255,255,0.10)';
+              (e.currentTarget as HTMLElement).style.color='rgba(255,255,255,0.80)';
+            }}
+          >Enroll Now</button>
         </div>
       </div>
     </div>

@@ -1,126 +1,122 @@
-const categories = [
-  {
-    name: 'Design',
-    icon: '🎨',
-    courses: 200,
-    color: 'from-violet-600/20 to-purple-600/10',
-    border: 'hover:border-violet-500/40',
-    iconBg: 'bg-violet-500/20',
-  },
-  {
-    name: 'Development',
-    icon: '💻',
-    courses: 350,
-    color: 'from-cyan-600/20 to-teal-600/10',
-    border: 'hover:border-cyan-500/40',
-    iconBg: 'bg-cyan-500/20',
-  },
-  {
-    name: 'IT & Software',
-    icon: '🖥️',
-    courses: 180,
-    color: 'from-blue-600/20 to-indigo-600/10',
-    border: 'hover:border-blue-500/40',
-    iconBg: 'bg-blue-500/20',
-  },
-  {
-    name: 'Business',
-    icon: '📈',
-    courses: 140,
-    color: 'from-amber-600/20 to-orange-600/10',
-    border: 'hover:border-amber-500/40',
-    iconBg: 'bg-amber-500/20',
-  },
-  {
-    name: 'Marketing',
-    icon: '📣',
-    courses: 120,
-    color: 'from-rose-600/20 to-pink-600/10',
-    border: 'hover:border-rose-500/40',
-    iconBg: 'bg-rose-500/20',
-  },
-  {
-    name: 'Photography',
-    icon: '📷',
-    courses: 95,
-    color: 'from-emerald-600/20 to-green-600/10',
-    border: 'hover:border-emerald-500/40',
-    iconBg: 'bg-emerald-500/20',
-  },
+const CATS = [
+  { name:'Design',       icon:'🎨', courses:200, accent:'rgba(124,58,237,0.25)' },
+  { name:'Development',  icon:'💻', courses:350, accent:'rgba(6,182,212,0.20)' },
+  { name:'IT & Software',icon:'🖥️', courses:180, accent:'rgba(59,130,246,0.20)' },
+  { name:'Business',     icon:'📈', courses:140, accent:'rgba(245,158,11,0.20)' },
+  { name:'Marketing',    icon:'📣', courses:120, accent:'rgba(244,63,94,0.20)' },
+  { name:'Photography',  icon:'📷', courses:95,  accent:'rgba(16,185,129,0.20)' },
 ];
 
-const tagCloud = [
-  'Digital Illustration', 'Film & Video', 'Crafts',
-  'Freelance & Entrepreneurship', 'Graphic Design', 'Photography',
-  'Productivity', 'Web Development', 'Data Science', 'Cooking',
-  'Music', 'Drawing & Painting', 'Marketing', 'Animation',
-  'Social Media', 'UI/UX Design', 'Creative Marketing',
+const TAGS = [
+  'Digital Illustration','Film & Video','Crafts','Freelance & Entrepreneurship',
+  'Graphic Design','Photography','Productivity','Web Development','Data Science',
+  'Cooking','Music','Drawing & Painting','Marketing','Animation','Social Media',
+  'UI/UX Design','Creative Marketing',
 ];
 
 export default function CategoriesSection() {
   return (
-    <section className="py-24 relative" id="categories">
-      <div className="glow-orb absolute right-[-100px] top-[200px] w-[500px] h-[500px] bg-cyan-800/10 pointer-events-none" />
+    <section id="categories" style={{ padding:'96px 0', position:'relative', background:'#0a0a0f' }}>
+      {/* glow */}
+      <div style={{ position:'absolute', right:'-100px', top:'200px', width:'500px', height:'500px',
+        borderRadius:'50%', background:'rgba(6,182,212,0.08)', filter:'blur(80px)', pointerEvents:'none' }} />
 
-      <div className="max-w-[1440px] mx-auto px-8 lg:px-[120px]">
-        {/* Section Header */}
-        <div className="flex items-end justify-between mb-12">
+      <div style={{ maxWidth:'1280px', margin:'0 auto', padding:'0 40px' }}>
+
+        {/* Header row */}
+        <div style={{ display:'flex', alignItems:'flex-end', justifyContent:'space-between', marginBottom:'48px', flexWrap:'wrap', gap:'16px' }}>
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/25 bg-cyan-500/8 mb-4">
-              <span className="text-xs text-cyan-300 font-medium uppercase tracking-widest">Categories</span>
+            <div style={{
+              display:'inline-flex', alignItems:'center', gap:'8px',
+              padding:'5px 14px', borderRadius:'999px', marginBottom:'12px',
+              border:'1px solid rgba(6,182,212,0.28)', background:'rgba(6,182,212,0.10)'
+            }}>
+              <span style={{ fontSize:'11px', color:'#67e8f9', fontWeight:600, letterSpacing:'0.1em', textTransform:'uppercase' }}>Categories</span>
             </div>
-            <h2 className="text-[42px] lg:text-[52px] font-black text-white leading-tight">
+            <h2 style={{ fontSize:'clamp(32px,4vw,50px)', fontWeight:900, color:'#fff', lineHeight:1.1 }}>
               Featured <span className="gradient-text">Categories</span>
             </h2>
-            <p className="text-white/50 text-[16px] mt-3 max-w-[500px]">
-              Innovative Paths to Knowledge — explore courses across every field that matters.
+            <p style={{ color:'rgba(255,255,255,0.48)', fontSize:'15px', marginTop:'10px', maxWidth:'460px' }}>
+              Innovative Paths to Knowledge — explore every field that matters.
             </p>
           </div>
-          <button className="hidden md:flex items-center gap-2 px-6 py-3 rounded-full border border-white/12 text-white/60 hover:border-purple-500/50 hover:text-white hover:bg-white/5 transition-all font-medium group">
-            View More
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </button>
+          <button style={{
+            padding:'12px 24px', borderRadius:'999px', fontSize:'14px', fontWeight:600,
+            background:'transparent', border:'1px solid rgba(255,255,255,0.12)',
+            color:'rgba(255,255,255,0.60)', cursor:'pointer', transition:'all 0.2s'
+          }}
+            onMouseOver={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(124,58,237,0.5)'; (e.currentTarget as HTMLElement).style.color='#fff'; }}
+            onMouseOut={e => { (e.currentTarget as HTMLElement).style.borderColor='rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color='rgba(255,255,255,0.60)'; }}
+          >View More →</button>
         </div>
 
-        {/* Category Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-16">
-          {categories.map((cat) => (
-            <button
-              key={cat.name}
-              className={`glass-card ${cat.border} rounded-2xl p-5 flex flex-col items-center gap-3 group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
+        {/* Category cards */}
+        <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))', gap:'16px', marginBottom:'64px' }}>
+          {CATS.map(cat => (
+            <button key={cat.name} style={{
+              background:'rgba(255,255,255,0.04)', border:'1px solid rgba(255,255,255,0.08)',
+              borderRadius:'18px', padding:'24px 16px',
+              display:'flex', flexDirection:'column', alignItems:'center', gap:'12px',
+              cursor:'pointer', transition:'all 0.3s'
+            }}
+              onMouseOver={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = cat.accent;
+                el.style.borderColor = 'rgba(124,58,237,0.35)';
+                el.style.transform = 'translateY(-3px)';
+                el.style.boxShadow = '0 12px 40px rgba(0,0,0,0.3)';
+              }}
+              onMouseOut={e => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = 'rgba(255,255,255,0.04)';
+                el.style.borderColor = 'rgba(255,255,255,0.08)';
+                el.style.transform = 'translateY(0)';
+                el.style.boxShadow = 'none';
+              }}
             >
-              <div className={`w-14 h-14 rounded-2xl ${cat.iconBg} bg-gradient-to-br ${cat.color} flex items-center justify-center text-2xl group-hover:scale-110 transition-transform`}>
-                {cat.icon}
-              </div>
-              <div className="text-center">
-                <div className="text-white font-semibold text-sm group-hover:text-purple-200 transition-colors">
-                  {cat.name}
-                </div>
-                <div className="text-white/35 text-xs mt-0.5">{cat.courses} courses</div>
+              <div style={{
+                width:'56px', height:'56px', borderRadius:'16px',
+                background: cat.accent, display:'flex', alignItems:'center',
+                justifyContent:'center', fontSize:'24px', transition:'transform 0.2s'
+              }}>{cat.icon}</div>
+              <div style={{ textAlign:'center' }}>
+                <div style={{ color:'#fff', fontWeight:600, fontSize:'13px' }}>{cat.name}</div>
+                <div style={{ color:'rgba(255,255,255,0.35)', fontSize:'11px', marginTop:'2px' }}>{cat.courses} courses</div>
               </div>
             </button>
           ))}
         </div>
 
-        {/* Tag Cloud */}
-        <div className="border-t border-white/6 pt-12">
-          <p className="text-sm text-white/35 mb-6 uppercase tracking-widest text-center">
+        {/* Tag cloud */}
+        <div style={{ borderTop:'1px solid rgba(255,255,255,0.06)', paddingTop:'48px' }}>
+          <p style={{ textAlign:'center', fontSize:'11px', letterSpacing:'0.16em', textTransform:'uppercase',
+            color:'rgba(255,255,255,0.3)', marginBottom:'24px', fontWeight:500 }}>
             Explore Diverse Learning Paths at Bytespace
           </p>
-          <div className="flex flex-wrap gap-2.5 justify-center">
-            {tagCloud.map((tag) => (
-              <button
-                key={tag}
-                className="px-4 py-2 rounded-full border border-white/10 text-white/50 text-sm hover:border-purple-500/40 hover:text-purple-300 hover:bg-purple-500/8 transition-all"
-              >
-                {tag}
-              </button>
+          <div style={{ display:'flex', flexWrap:'wrap', gap:'10px', justifyContent:'center' }}>
+            {TAGS.map(tag => (
+              <button key={tag} style={{
+                padding:'8px 16px', borderRadius:'999px', fontSize:'13px', fontWeight:500,
+                border:'1px solid rgba(255,255,255,0.10)', color:'rgba(255,255,255,0.50)',
+                background:'transparent', cursor:'pointer', transition:'all 0.2s'
+              }}
+                onMouseOver={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor='rgba(124,58,237,0.45)';
+                  (e.currentTarget as HTMLElement).style.color='#c4b5fd';
+                  (e.currentTarget as HTMLElement).style.background='rgba(124,58,237,0.08)';
+                }}
+                onMouseOut={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor='rgba(255,255,255,0.10)';
+                  (e.currentTarget as HTMLElement).style.color='rgba(255,255,255,0.50)';
+                  (e.currentTarget as HTMLElement).style.background='transparent';
+                }}
+              >{tag}</button>
             ))}
-            <button className="px-4 py-2 rounded-full border border-dashed border-purple-500/30 text-purple-400 text-sm hover:bg-purple-500/10 transition-all font-medium">
-              + More
-            </button>
+            <button style={{
+              padding:'8px 16px', borderRadius:'999px', fontSize:'13px', fontWeight:600,
+              border:'1px dashed rgba(124,58,237,0.40)', color:'#a855f7',
+              background:'transparent', cursor:'pointer'
+            }}>+ More</button>
           </div>
         </div>
       </div>

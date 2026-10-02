@@ -8,117 +8,117 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const fn = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
   }, []);
 
+  const navStyle: React.CSSProperties = {
+    position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
+    height: '78px', display: 'flex', alignItems: 'center',
+    transition: 'all 0.3s ease',
+    background: scrolled ? 'rgba(10,10,15,0.95)' : 'transparent',
+    backdropFilter: scrolled ? 'blur(20px)' : 'none',
+    WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
+    borderBottom: scrolled ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent',
+    boxShadow: scrolled ? '0 4px 24px rgba(0,0,0,0.3)' : 'none',
+  };
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#0a0a0f]/95 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/20'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-[1440px] mx-auto px-8 lg:px-[120px] h-[80px] flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 relative">
-            <svg viewBox="0 0 32 35" fill="none" className="w-full h-full">
-              <path
-                d="M16 0L31 8.5V26.5L16 35L1 26.5V8.5L16 0Z"
-                fill="url(#logoGrad)"
-              />
-              <path
-                d="M10 14h6a3 3 0 010 6h-6v-6zm0 0V10h5a2 2 0 010 4"
-                stroke="white"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
+    <>
+      <nav style={navStyle}>
+        <div style={{ maxWidth:'1280px', margin:'0 auto', padding:'0 40px', width:'100%', display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+
+          {/* Logo */}
+          <Link href="/" style={{ display:'flex', alignItems:'center', gap:'10px', textDecoration:'none' }}>
+            <svg width="32" height="35" viewBox="0 0 32 35" fill="none">
+              <path d="M16 0L31 8.5V26.5L16 35L1 26.5V8.5L16 0Z" fill="url(#ng)"/>
+              <path d="M10 14h6a3 3 0 010 6h-6v-6zm0 0V10h5a2 2 0 010 4" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
               <defs>
-                <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="35" gradientUnits="userSpaceOnUse">
-                  <stop stopColor="#7c3aed" />
-                  <stop offset="1" stopColor="#06b6d4" />
+                <linearGradient id="ng" x1="0" y1="0" x2="32" y2="35" gradientUnits="userSpaceOnUse">
+                  <stop stopColor="#7c3aed"/><stop offset="1" stopColor="#06b6d4"/>
                 </linearGradient>
               </defs>
             </svg>
+            <span style={{ fontSize:'22px', fontWeight:800, color:'#fff', letterSpacing:'-0.02em' }}>ByteSpace</span>
+          </Link>
+
+          {/* Desktop nav */}
+          <div className="hidden md:flex" style={{ gap:'32px', alignItems:'center' }}>
+            {[{label:'Home',href:'/'},{label:'Courses',href:'#courses'},{label:'Creators',href:'#about'}].map(item => (
+              <Link key={item.label} href={item.href} className="nav-link"
+                style={{ color:'rgba(255,255,255,0.65)', fontSize:'15px', fontWeight:500, textDecoration:'none', transition:'color 0.2s' }}
+                onMouseOver={e => (e.currentTarget.style.color='#fff')}
+                onMouseOut={e => (e.currentTarget.style.color='rgba(255,255,255,0.65)')}
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
-          <span className="text-[22px] font-bold text-white tracking-tight group-hover:text-purple-300 transition-colors">
-            ByteSpace
-          </span>
-        </Link>
 
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {['Home', 'Courses', 'Creators'].map((item) => (
-            <Link
-              key={item}
-              href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-              className="nav-link text-[15px] text-white/70 hover:text-white transition-colors font-medium"
-            >
-              {item}
-            </Link>
-          ))}
-        </div>
+          {/* Auth buttons */}
+          <div className="hidden md:flex" style={{ gap:'20px', alignItems:'center' }}>
+            <Link href="/login"
+              style={{ color:'rgba(255,255,255,0.65)', fontSize:'15px', fontWeight:500, textDecoration:'none', transition:'color 0.2s' }}
+              onMouseOver={e => (e.currentTarget.style.color='#fff')}
+              onMouseOut={e => (e.currentTarget.style.color='rgba(255,255,255,0.65)')}
+            >Sign In</Link>
+            <Link href="/signup" style={{
+              padding:'10px 22px', borderRadius:'999px', fontSize:'14px', fontWeight:700,
+              background:'linear-gradient(135deg,#7c3aed,#6d28d9)', color:'#fff',
+              textDecoration:'none', transition:'all 0.2s',
+              boxShadow:'0 4px 20px rgba(124,58,237,0.35)'
+            }}
+              onMouseOver={e => { e.currentTarget.style.transform='scale(1.04)'; e.currentTarget.style.boxShadow='0 6px 28px rgba(124,58,237,0.5)'; }}
+              onMouseOut={e => { e.currentTarget.style.transform='scale(1)'; e.currentTarget.style.boxShadow='0 4px 20px rgba(124,58,237,0.35)'; }}
+            >Join Us</Link>
+          </div>
 
-        {/* Auth Buttons */}
-        <div className="hidden md:flex items-center gap-5">
-          <Link
-            href="/login"
-            className="text-[15px] text-white/70 hover:text-white transition-colors font-medium"
+          {/* Mobile hamburger */}
+          <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}
+            style={{ background:'none', border:'none', cursor:'pointer', display:'flex', flexDirection:'column', gap:'5px', padding:'4px' }}
+            aria-label="Menu"
           >
-            Sign In
-          </Link>
-          <Link
-            href="/signup"
-            className="px-5 py-2.5 rounded-full text-[15px] font-semibold text-white bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 transition-all shadow-lg shadow-purple-900/30 hover:shadow-purple-900/50 hover:scale-105 active:scale-95"
-          >
-            Join Us
-          </Link>
-          {/* Search icon */}
-          <button className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center hover:border-purple-500/50 hover:bg-white/5 transition-all">
-            <svg className="w-4 h-4 text-white/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+            {[0,1,2].map(i => (
+              <span key={i} style={{
+                display:'block', width:'22px', height:'2px', background:'#fff', borderRadius:'2px',
+                transition:'all 0.3s',
+                transform: mobileOpen ? (i===0?'rotate(45deg) translateY(7px)':i===1?'scaleX(0)':'rotate(-45deg) translateY(-7px)') : 'none',
+                opacity: mobileOpen && i===1 ? 0 : 1
+              }} />
+            ))}
           </button>
         </div>
-
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden w-9 h-9 flex flex-col gap-1.5 items-center justify-center"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          <span className={`w-6 h-0.5 bg-white transition-all ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
-          <span className={`w-6 h-0.5 bg-white transition-all ${mobileOpen ? 'opacity-0' : ''}`} />
-          <span className={`w-6 h-0.5 bg-white transition-all ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-        </button>
-      </div>
+      </nav>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-[#0a0a0f]/98 backdrop-blur-xl border-t border-white/10 px-8 py-6 flex flex-col gap-5">
-          {['Home', 'Courses', 'Creators'].map((item) => (
-            <Link
-              key={item}
-              href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-              className="text-white/70 hover:text-white text-lg font-medium transition-colors"
+        <div style={{
+          position:'fixed', top:'78px', left:0, right:0, zIndex:49,
+          background:'rgba(10,10,15,0.98)', backdropFilter:'blur(20px)', WebkitBackdropFilter:'blur(20px)',
+          borderBottom:'1px solid rgba(255,255,255,0.08)',
+          padding:'24px 40px 32px', display:'flex', flexDirection:'column', gap:'20px'
+        }}>
+          {[{label:'Home',href:'/'},{label:'Courses',href:'#courses'},{label:'Creators',href:'#about'}].map(item => (
+            <Link key={item.label} href={item.href}
+              style={{ color:'rgba(255,255,255,0.70)', fontSize:'18px', fontWeight:500, textDecoration:'none' }}
               onClick={() => setMobileOpen(false)}
-            >
-              {item}
-            </Link>
+            >{item.label}</Link>
           ))}
-          <div className="flex gap-4 pt-2 border-t border-white/10">
-            <Link href="/login" className="flex-1 text-center py-3 rounded-full border border-white/20 text-white/80 hover:bg-white/5 transition-all">
-              Sign In
-            </Link>
-            <Link href="/signup" className="flex-1 text-center py-3 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold hover:from-violet-500 hover:to-purple-500 transition-all">
-              Join Us
-            </Link>
+          <div style={{ display:'flex', gap:'12px', paddingTop:'12px', borderTop:'1px solid rgba(255,255,255,0.08)' }}>
+            <Link href="/login" style={{
+              flex:1, textAlign:'center', padding:'12px', borderRadius:'999px',
+              border:'1px solid rgba(255,255,255,0.15)', color:'rgba(255,255,255,0.75)',
+              textDecoration:'none', fontSize:'15px', fontWeight:500
+            }}>Sign In</Link>
+            <Link href="/signup" style={{
+              flex:1, textAlign:'center', padding:'12px', borderRadius:'999px',
+              background:'linear-gradient(135deg,#7c3aed,#6d28d9)', color:'#fff',
+              textDecoration:'none', fontSize:'15px', fontWeight:700
+            }}>Join Us</Link>
           </div>
         </div>
       )}
-    </nav>
+    </>
   );
 }
